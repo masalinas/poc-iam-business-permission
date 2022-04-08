@@ -1,0 +1,174 @@
+{
+  "allowRemoteResourceManagement": true,
+  "policyEnforcementMode": "ENFORCING",
+  "resources": [
+    {
+      "name": "Default Resource",
+      "type": "urn:backend-service:resources:default",
+      "ownerManagedAccess": false,
+      "attributes": {},
+      "_id": "58fc15a2-ceed-4998-9e10-6e0e092ed2b5",
+      "uris": [
+        "/*"
+      ]
+    },
+    {
+      "name": "product-resource",
+      "type": "urn:backend-service:resources:product",
+      "ownerManagedAccess": false,
+      "displayName": "Product Resource",
+      "attributes": {},
+      "_id": "12a8ac5e-ddc0-4eb7-98cd-5e8c80614e9e",
+      "uris": [
+        "/api/products/*"
+      ],
+      "scopes": [
+        {
+          "name": "DELETE"
+        },
+        {
+          "name": "GET"
+        },
+        {
+          "name": "POST"
+        },
+        {
+          "name": "PUT"
+        }
+      ]
+    }
+  ],
+  "policies": [
+    {
+      "id": "9bfff038-196a-4b35-8f2a-47cd5df0b78d",
+      "name": "Default Policy",
+      "description": "A policy that grants access only for users within this realm",
+      "type": "js",
+      "logic": "POSITIVE",
+      "decisionStrategy": "AFFIRMATIVE",
+      "config": {
+        "code": "// by default, grants any permission associated with this policy\n$evaluation.grant();\n"
+      }
+    },
+    {
+      "id": "c221aeb0-38ea-4f80-bce8-982c66ec6f93",
+      "name": "Admin Policy",
+      "description": "Policy that grants access only for users within admin role",
+      "type": "role",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "roles": "[{\"id\":\"admin\",\"required\":false}]"
+      }
+    },
+    {
+      "id": "ae5c8f97-ad57-48ba-a341-799508e8ba55",
+      "name": "Operator Policy",
+      "description": "Policy that grants access only for users within operator role",
+      "type": "role",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "roles": "[{\"id\":\"operator\",\"required\":false}]"
+      }
+    },
+    {
+      "id": "4108aaa7-48e0-4e6e-8bb8-24e43f73bd74",
+      "name": "User Policy",
+      "description": "Policy that grants access only for users within user role",
+      "type": "role",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "roles": "[{\"id\":\"user\",\"required\":false}]"
+      }
+    },
+    {
+      "id": "81d45409-bc97-4ee3-b3c6-dce6473b396b",
+      "name": "Default Permission",
+      "description": "A permission that applies to the default resource type",
+      "type": "resource",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "defaultResourceType": "urn:backend-service:resources:default",
+        "applyPolicies": "[\"Default Policy\"]"
+      }
+    },
+    {
+      "id": "4006d01f-be84-4569-9996-bcd1d08e1e3c",
+      "name": "product-create",
+      "description": "A permission that applies to the product resource with scope create resource",
+      "type": "scope",
+      "logic": "POSITIVE",
+      "decisionStrategy": "AFFIRMATIVE",
+      "config": {
+        "resources": "[\"product-resource\"]",
+        "scopes": "[\"POST\"]",
+        "applyPolicies": "[\"Admin Policy\"]"
+      }
+    },
+    {
+      "id": "81a7dc94-5e63-4bea-8b65-6db46c21e23d",
+      "name": "product-delete",
+      "description": "A permission that applies to the product resource with scope delete resource",
+      "type": "scope",
+      "logic": "POSITIVE",
+      "decisionStrategy": "AFFIRMATIVE",
+      "config": {
+        "resources": "[\"product-resource\"]",
+        "scopes": "[\"DELETE\"]",
+        "applyPolicies": "[\"Admin Policy\"]"
+      }
+    },
+    {
+      "id": "b2d226e1-7e84-45d5-81e4-68041a3bf8cf",
+      "name": "product-edit",
+      "description": "A permission that applies to the product resource with scope edit resource",
+      "type": "scope",
+      "logic": "POSITIVE",
+      "decisionStrategy": "AFFIRMATIVE",
+      "config": {
+        "resources": "[\"product-resource\"]",
+        "scopes": "[\"PUT\"]",
+        "applyPolicies": "[\"Admin Policy\",\"Operator Policy\"]"
+      }
+    },
+    {
+      "id": "69ad2b2a-1cf3-4cfc-b819-d656106d9aab",
+      "name": "product-view",
+      "description": "A permission that applies to the product resource with scope view resource",
+      "type": "scope",
+      "logic": "POSITIVE",
+      "decisionStrategy": "AFFIRMATIVE",
+      "config": {
+        "resources": "[\"product-resource\"]",
+        "scopes": "[\"GET\"]",
+        "applyPolicies": "[\"Admin Policy\",\"User Policy\",\"Operator Policy\"]"
+      }
+    }
+  ],
+  "scopes": [
+    {
+      "id": "39464824-f112-4c55-9714-40fac6f01cd0",
+      "name": "DELETE",
+      "displayName": "Delete Resource"
+    },
+    {
+      "id": "96988dc9-e992-4ec7-8de3-996810b78358",
+      "name": "GET",
+      "displayName": "View Resource"
+    },
+    {
+      "id": "429084ba-eadf-4bfd-84bb-69baf89aa600",
+      "name": "POST",
+      "displayName": "Create Resource"
+    },
+    {
+      "id": "c83af907-5b98-4ebb-bcdd-3bc0e1e81b30",
+      "name": "PUT",
+      "displayName": "Edit Resource"
+    }
+  ],
+  "decisionStrategy": "UNANIMOUS"
+}

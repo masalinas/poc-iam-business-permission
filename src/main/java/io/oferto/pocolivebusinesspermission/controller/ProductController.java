@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.oferto.pocolivebusinesspermission.domain.Product;
 
 @RestController
-@RequestMapping("api/products")
+@RequestMapping("/api/products")
 public class ProductController {
 	Logger log = LoggerFactory.getLogger(ProductController.class);
 			
@@ -25,7 +24,6 @@ public class ProductController {
 						  new Product("002", "Banana", 4.3f, false),
 						  new Product("003", "Orange", 3.2f, true)));
 	
-	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "", method = RequestMethod.GET)
     public List<Product> getProducts() throws Exception {
         log.info("Executing getProducts");
@@ -33,7 +31,6 @@ public class ProductController {
     	return products;
     }
 	
-	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/{code}", method = RequestMethod.GET)
     public Product getProduct(@PathVariable("code") String code) throws Exception {
         log.info("Executing Get Product");
@@ -46,7 +43,6 @@ public class ProductController {
     	return product;
     }
 		
-	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "", method = RequestMethod.POST)
     public List<Product> createProduct(@RequestBody Product product) throws Exception {
         log.info("Executing Create Product");
@@ -56,7 +52,6 @@ public class ProductController {
     	return products;
     }
 	
-	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/{code}", method = RequestMethod.DELETE)
     public boolean deleteProduct(@PathVariable String code) throws Exception {
         log.info("Executing Delete Product");

@@ -1,24 +1,24 @@
 server:
-  port: 8084
+  port: 8081
 
-#Keycloak authorization properties
 keycloak:
   realm: poc
-  resource: business-permission-api  
-  auth-server-url: http://localhost:8080/auth
+  resource: backend-service  
+  auth-server-url: http://localhost:8080/
   ssl-required: external
+  verify-token-audience: false
   credentials:
-    secret: 4f69d3ff-bb14-46b5-b6cd-f7cf23a488a0
-  use-resource-role-mappings: true  
-  bearer-only: true
- 
+    secret: Bl5UJPsnmZrx6neFECWVVGpC9RvBrQoz
   security-constraints:
-    - auth-roles:
-        - "*"
-      security-collections:
-        - name:
-          patterns:
-            - /*
+  - auth-roles:
+    - user
+    - operator
+    - admin
+    security-collections:
+    - patterns:
+      - /api/*    
   policy-enforcer-config:
-    enforcement-mode: ENFORCING
-    http-method-as-scope: true         
+    http-method-as-scope: true
+    paths:
+    - path: /api/products/*
+           
