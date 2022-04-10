@@ -32,7 +32,7 @@ public class ProductController {
     }
 	
 	@RequestMapping(value = "/{code}", method = RequestMethod.GET)
-    public Product findBycode(@PathVariable("code") String code) throws Exception {
+    public Product findByCode(@PathVariable("code") String code) throws Exception {
         log.info("Executing Get Product");
               
         Product product = products.stream()
