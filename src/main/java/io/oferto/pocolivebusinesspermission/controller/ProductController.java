@@ -25,15 +25,15 @@ public class ProductController {
 						  new Product("003", "Orange", 3.2f, true)));
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
-    public List<Product> findall() throws Exception {
-        log.info("Executing getProducts");
+    public List<Product> findAll() throws Exception {
+        log.info("Executing Get All Products");
                     	
     	return products;
     }
 	
 	@RequestMapping(value = "/{code}", method = RequestMethod.GET)
     public Product findByCode(@PathVariable("code") String code) throws Exception {
-        log.info("Executing Get Product");
+        log.info("Executing Get Product by Code");
               
         Product product = products.stream()
         	.filter(entity -> code.equals(entity.getCode()))
