@@ -53,7 +53,7 @@ public class ProductController {
     }
 	
 	@RequestMapping(value = "/{code}", method = RequestMethod.DELETE)
-    public boolean delete(@PathVariable String code) throws Exception {
+    public boolean deleteByCode(@PathVariable String code) throws Exception {
         log.info("Executing Delete Product");
               
         Product product = products.stream()
