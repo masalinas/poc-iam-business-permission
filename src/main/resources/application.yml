@@ -11,14 +11,15 @@ keycloak:
     secret: Bl5UJPsnmZrx6neFECWVVGpC9RvBrQoz
   security-constraints:
   - auth-roles:
-    - user
-    - operator
-    - admin
+    - "*"
     security-collections:
     - patterns:
       - /api/*    
   policy-enforcer-config:
+    enforcement-mode: enforcing
     http-method-as-scope: true
-    paths:
-    - path: /api/products/*
            
+# Turn off the logs
+logging:
+  level:
+    root: info
