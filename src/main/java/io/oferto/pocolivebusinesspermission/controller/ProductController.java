@@ -25,14 +25,14 @@ public class ProductController {
 						  new Product("003", "Orange", 3.2f, true)));
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
-    public List<Product> getProducts() throws Exception {
+    public List<Product> findall() throws Exception {
         log.info("Executing getProducts");
                     	
     	return products;
     }
 	
 	@RequestMapping(value = "/{code}", method = RequestMethod.GET)
-    public Product getProduct(@PathVariable("code") String code) throws Exception {
+    public Product findBycode(@PathVariable("code") String code) throws Exception {
         log.info("Executing Get Product");
               
         Product product = products.stream()
@@ -44,7 +44,7 @@ public class ProductController {
     }
 		
 	@RequestMapping(value = "", method = RequestMethod.POST)
-    public List<Product> createProduct(@RequestBody Product product) throws Exception {
+    public List<Product> save(@RequestBody Product product) throws Exception {
         log.info("Executing Create Product");
               
         products.add(product);
@@ -53,7 +53,7 @@ public class ProductController {
     }
 	
 	@RequestMapping(value = "/{code}", method = RequestMethod.DELETE)
-    public boolean deleteProduct(@PathVariable String code) throws Exception {
+    public boolean delete(@PathVariable String code) throws Exception {
         log.info("Executing Delete Product");
               
         Product product = products.stream()
