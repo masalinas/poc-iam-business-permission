@@ -14,7 +14,7 @@ keycloak:
     - "*"
     security-collections:
     - patterns:
-      - /api/*    
+      - "/api/*"    
   policy-enforcer-config:
     enforcement-mode: enforcing
     http-method-as-scope: true
